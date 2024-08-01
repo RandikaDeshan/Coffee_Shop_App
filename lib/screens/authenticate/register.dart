@@ -1,21 +1,21 @@
 import 'package:coffee_shop_app/services/auth.dart';
 import 'package:flutter/material.dart';
 
-class SignIn extends StatefulWidget {
+class Register extends StatefulWidget {
   final Function toggleView;
-  const SignIn({super.key, required this.toggleView});
+  const Register({super.key, required this.toggleView});
 
   @override
-  State<SignIn> createState() => _SignInState();
+  State<Register> createState() => _RegisterState();
 }
 
-class _SignInState extends State<SignIn> {
+class _RegisterState extends State<Register> {
   final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
-
   String email = '';
   String password = '';
   String error = '';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +24,7 @@ class _SignInState extends State<SignIn> {
         backgroundColor: Colors.brown[400],
         elevation: 0,
         title: const Text(
-          "Sign in to Coffee Shop",
+          "Sign up to Coffee Shop",
           style: TextStyle(color: Colors.white),
         ),
         actions: [
@@ -33,7 +33,7 @@ class _SignInState extends State<SignIn> {
               widget.toggleView();
             },
             label: const Text(
-              "Register",
+              "Sign in",
               style: TextStyle(color: Colors.black),
             ),
             icon: const Icon(
@@ -80,11 +80,11 @@ class _SignInState extends State<SignIn> {
                   ElevatedButton(
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
-                        dynamic result = await _auth.signInWithEmailAndPassword(
-                            email, password);
+                        dynamic result = await _auth
+                            .registerWithEmailAndPassword(email, password);
                         if (result == null) {
                           setState(() {
-                            error = 'could not sign in with those credentials';
+                            error = 'please supply a valid email';
                           });
                         }
                       }
@@ -92,7 +92,7 @@ class _SignInState extends State<SignIn> {
                     style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.brown[600]),
                     child: const Text(
-                      "Sign in",
+                      "Register",
                       style: TextStyle(color: Colors.white),
                     ),
                   ),
