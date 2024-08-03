@@ -1,5 +1,6 @@
 import 'package:coffee_shop_app/models/coffee.dart';
 import 'package:coffee_shop_app/screens/home/coffee_list.dart';
+import 'package:coffee_shop_app/screens/home/settings_form.dart';
 import 'package:coffee_shop_app/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -12,13 +13,14 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    void _showSettingsPanel() {
+    void showSettingsPanel() {
       showModalBottomSheet(
           context: context,
           builder: (context) {
             return Container(
+              decoration: const BoxDecoration(color: Colors.grey),
               padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 60),
-              child: const Text("bottom sheet"),
+              child: const SettingsForm(),
             );
           });
     }
@@ -50,7 +52,7 @@ class Home extends StatelessWidget {
               ),
             ),
             TextButton.icon(
-              onPressed: () => _showSettingsPanel(),
+              onPressed: () => showSettingsPanel(),
               label: const Text(
                 "Setings",
                 style: TextStyle(color: Colors.black),
@@ -62,7 +64,12 @@ class Home extends StatelessWidget {
             ),
           ],
         ),
-        body: const CoffeeList(),
+        body: Container(
+            decoration: const BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage('assets/coffee_bg.png'),
+                    fit: BoxFit.cover)),
+            child: const CoffeeList()),
       ),
     );
   }

@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:coffee_shop_app/models/user.dart';
 import 'package:coffee_shop_app/services/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -47,7 +46,7 @@ class AuthService {
       User? user = result.user;
       await DatabaseService(uid: user!.uid)
           .updateUserData('0', 'new crew member', 100);
-      return _userFromFirebase(user!);
+      return _userFromFirebase(user);
     } catch (e) {
       print(e.toString());
       return null;
